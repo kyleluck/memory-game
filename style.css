@@ -2,7 +2,7 @@ body {
   background: url('bg.png');
 }
 .tile {
-  box-shadow: 5px 10px 6px -6px #777;
+  box-shadow: 10px 10px 6px -6px #777;
 }
 .monster, .gameover {
   opacity: 0;
