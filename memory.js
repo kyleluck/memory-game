@@ -24,7 +24,7 @@ function shuffleTiles (arrayOfTiles) {
   return arrayOfTiles;
 }
 
-function createTileLayout (arrayOfTiles) {
+function createTileLayout(arrayOfTiles) {
   var tiles = shuffleTiles(arrayOfTiles);
   var html = '';
   tiles.forEach(function(val) {
@@ -36,10 +36,10 @@ function createTileLayout (arrayOfTiles) {
   $('.row').html(html);
 }
 
-function chooseRandomImages() {
+function chooseRandomImages(numImagesToUse, numTotalImages) {
   var arrayOfImageNumbers = [];
-  while (arrayOfImageNumbers.length < 8) {
-    var randomNumber = Math.floor(Math.random() * 16);
+  while (arrayOfImageNumbers.length < numImagesToUse) {
+    var randomNumber = Math.floor(Math.random() * numTotalImages);
     if (arrayOfImageNumbers.indexOf(randomNumber) === -1) {
       arrayOfImageNumbers.push(randomNumber);
       arrayOfImageNumbers.push(randomNumber);
@@ -54,8 +54,7 @@ $(function() {
   var prevElement;
   var currElement;
   var numMoves = 0;
-  //var arrayOfTiles = [1, 1, 2, 2, 3, 3, 4, 4];
-  var arrayOfTiles = chooseRandomImages();
+  var arrayOfTiles = chooseRandomImages(8, 16);
   createTileLayout(arrayOfTiles);
 
   $('.tile').click(function() {
