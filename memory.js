@@ -1,19 +1,22 @@
-var state = true;
-var prevElement;
-var currElement;
-var gameOver = false;
-
-function checkIfGameOver() {
+function checkIfGameOver(numMoves) {
+  var gameOver = false;
   if ($('.tile').length === $('.selected').length) {
     gameOver = true;
   }
   if (gameOver) {
-    $('.gameover').show();
+    $('.gameover').append(' with ' + numMoves + ' moves!').show();
   }
 }
 
 $(function() {
+
+  var state = true;
+  var prevElement;
+  var currElement;
+  var numMoves = 0;
+
   $('.gameover').hide();
+
   $('.tile').click(function() {
     if (state) {
       $(this).addClass('selected animated flipInY');
@@ -33,7 +36,8 @@ $(function() {
         }, 1000);
       }
       state = true;
+      numMoves++;
     }
-    checkIfGameOver();
+    checkIfGameOver(numMoves);
   });
 });
