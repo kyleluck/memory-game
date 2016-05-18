@@ -28,9 +28,24 @@ function createTileLayout (arrayOfTiles) {
   var tiles = shuffleTiles(arrayOfTiles);
   var html = '';
   tiles.forEach(function(val) {
-    html += '<div class="col col-xs-6 col-sm-3 tile"><img src="images/monsters-0' + val + '.png" alt="" class="img-responsive monster"></div>';
+    if (val < 10) {
+      val = "0" + val.toString();
+    }
+    html += '<div class="col col-xs-6 col-sm-3 tile"><img src="images/monsters-' + val + '.png" alt="" class="img-responsive monster"></div>';
   });
   $('.row').html(html);
+}
+
+function chooseRandomImages() {
+  var arrayOfImageNumbers = [];
+  while (arrayOfImageNumbers.length < 8) {
+    var randomNumber = Math.floor(Math.random() * 16);
+    if (arrayOfImageNumbers.indexOf(randomNumber) === -1) {
+      arrayOfImageNumbers.push(randomNumber);
+      arrayOfImageNumbers.push(randomNumber);
+    }
+  }
+  return arrayOfImageNumbers;
 }
 
 $(function() {
@@ -39,7 +54,8 @@ $(function() {
   var prevElement;
   var currElement;
   var numMoves = 0;
-  var arrayOfTiles = [1, 1, 2, 2, 3, 3, 4, 4];
+  //var arrayOfTiles = [1, 1, 2, 2, 3, 3, 4, 4];
+  var arrayOfTiles = chooseRandomImages();
   createTileLayout(arrayOfTiles);
 
   $('.tile').click(function() {
