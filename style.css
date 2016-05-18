@@ -2,6 +2,8 @@ body {
   margin-top: 20px;
 }
 .monster {
-  width: 100%;
-  display: block;
+  visibility: hidden;
+}
+.tile:hover .monster {
+  visibility: visible;
 }
