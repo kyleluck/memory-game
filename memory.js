@@ -8,12 +8,39 @@ function checkIfGameOver(numMoves) {
   }
 }
 
+function shuffleTiles (arrayOfTiles) {
+  var currentIndex = arrayOfTiles.length;
+  var tempValue;
+  var randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    tempValue = arrayOfTiles[currentIndex];
+    arrayOfTiles[currentIndex] = arrayOfTiles[randomIndex];
+    arrayOfTiles[randomIndex] = tempValue;
+  }
+  return arrayOfTiles;
+}
+
+function createTileLayout (arrayOfTiles) {
+  var tiles = shuffleTiles(arrayOfTiles);
+  var html = '';
+  tiles.forEach(function(val) {
+    html += '<div class="col col-xs-6 col-sm-3 tile"><img src="images/monsters-0' + val + '.png" alt="" class="img-responsive monster"></div>';
+  });
+  $('.row').html(html);
+}
+
 $(function() {
 
   var state = true;
   var prevElement;
   var currElement;
   var numMoves = 0;
+  var arrayOfTiles = [1, 1, 2, 2, 3, 3, 4, 4];
+  createTileLayout(arrayOfTiles);
 
   $('.tile').click(function() {
     if (state) {
