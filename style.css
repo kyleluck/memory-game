@@ -1,9 +1,14 @@
 body {
   margin-top: 20px;
+  background: url('bg.png');
+}
+.tile {
+  border: 1px solid black;
 }
 .monster {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
-.tile:hover .monster {
-  visibility: visible;
+.selected .monster {
+  opacity: 1;
 }
