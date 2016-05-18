@@ -4,7 +4,7 @@ function checkIfGameOver(numMoves) {
     gameOver = true;
   }
   if (gameOver) {
-    $('.gameover').append(' with ' + numMoves + ' moves!').show();
+    $('.gameover').append(' with ' + numMoves + ' moves!').addClass('gameovershow');
   }
 }
 
@@ -14,8 +14,6 @@ $(function() {
   var prevElement;
   var currElement;
   var numMoves = 0;
-
-  $('.gameover').hide();
 
   $('.tile').click(function() {
     if (state) {

@@ -1,14 +1,13 @@
 body {
-  margin-top: 20px;
   background: url('bg.png');
 }
 .tile {
   box-shadow: 5px 10px 6px -6px #777;
 }
-.monster {
+.monster, .gameover {
   opacity: 0;
   transition: opacity 0.5s;
 }
-.tile.selected .monster {
+.tile.selected .monster, .gameovershow {
   opacity: 1;
 }
