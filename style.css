@@ -3,7 +3,7 @@ body {
   background: url('bg.png');
 }
 .tile {
-  border: 1px solid black;
+  box-shadow: 5px 10px 6px -6px #777;
 }
 .monster {
   opacity: 0;
