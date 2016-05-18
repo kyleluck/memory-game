@@ -11,3 +11,6 @@ body {
 .tile.selected .monster, .gameovershow {
   opacity: 1;
 }
+.playagain {
+  margin-left: 10px;
+}

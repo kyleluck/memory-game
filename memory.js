@@ -4,7 +4,7 @@ function checkIfGameOver(numMoves) {
     gameOver = true;
   }
   if (gameOver) {
-    $('.gameover').append(' with ' + numMoves + ' moves!').addClass('gameovershow');
+    $('.gameover').prepend('Congrats! You won with ' + numMoves + ' moves!').addClass('gameovershow');
   }
 }
 
@@ -39,7 +39,7 @@ function createTileLayout(arrayOfTiles) {
 function chooseRandomImages(numImagesToUse, numTotalImages) {
   var arrayOfImageNumbers = [];
   while (arrayOfImageNumbers.length < numImagesToUse) {
-    var randomNumber = Math.floor(Math.random() * numTotalImages);
+    var randomNumber = Math.floor(Math.random() * numTotalImages) + 1;
     if (arrayOfImageNumbers.indexOf(randomNumber) === -1) {
       arrayOfImageNumbers.push(randomNumber);
       arrayOfImageNumbers.push(randomNumber);
@@ -49,7 +49,6 @@ function chooseRandomImages(numImagesToUse, numTotalImages) {
 }
 
 $(function() {
-
   var state = true;
   var prevElement;
   var currElement;
@@ -70,7 +69,6 @@ $(function() {
       }
       else {
         currElement.addClass('selected animated flipInY');
-
         //check if monsters match
         if (prevElement.find('.monster').attr('src') === currElement.find('.monster').attr('src')) {
           //do nothing
@@ -85,5 +83,9 @@ $(function() {
       }
     }
     checkIfGameOver(numMoves);
+  });
+
+  $('.playagain').on('click', function() {
+    location.reload();
   });
 });
