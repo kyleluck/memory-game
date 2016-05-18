@@ -48,13 +48,28 @@ function chooseRandomImages(numImagesToUse, numTotalImages) {
   return arrayOfImageNumbers;
 }
 
+function createLevel(level) {
+  if (level === 'Easy') {
+    numImagesToUse = 8;
+  } else if (level === 'Medium') {
+    numImagesToUse = 12;
+  } else if (level === 'Hard'){
+    numImagesToUse = 16;
+  }
+  var arrayOfTiles = chooseRandomImages(numImagesToUse, 16);
+  createTileLayout(arrayOfTiles);
+}
+
 $(function() {
   var state = true;
   var prevElement;
   var currElement;
   var numMoves = 0;
-  var arrayOfTiles = chooseRandomImages(8, 16);
-  createTileLayout(arrayOfTiles);
+
+  $('#chooselevel li').on('click', function() {
+    level = $(this).text();
+    createLevel(level);
+  });
 
   $('.tile').click(function() {
     if (state) {
