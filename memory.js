@@ -71,7 +71,7 @@ $(function() {
     createLevel(level);
   });
 
-  $('.tile').click(function() {
+  $('.row').on('click', '.tile', function() {
     if (state) {
       $(this).addClass('selected animated flipInY');
       prevElement = $(this);
