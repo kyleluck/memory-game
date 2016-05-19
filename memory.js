@@ -69,10 +69,6 @@ MemoryGame.prototype.createLevel = function(level) {
 
 $(function() {
   var game = new MemoryGame(true, '', '', 0);
-  // var state = true;
-  // var prevElement;
-  // var currElement;
-  // var numMoves = 0;
 
   $('#chooselevel li').on('click', function() {
     level = $(this).text();
@@ -86,7 +82,7 @@ $(function() {
       game.state = false;
     } else {
       game.currElement = $(this);
-      //check to see if the user clicked on the same tile... stupid users
+      //check to see if the user clicked on the same tile...
       if (game.currElement.hasClass('selected')) {
         game.state = false;
       }
@@ -94,7 +90,6 @@ $(function() {
         game.currElement.addClass('selected');
         //check if monsters match
         if (game.prevElement.find('.monster').attr('src') === game.currElement.find('.monster').attr('src')) {
-          //do nothing
           game.prevElement.addClass('matched');
           game.currElement.addClass('matched');
         } else {
