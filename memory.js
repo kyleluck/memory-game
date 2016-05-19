@@ -38,7 +38,7 @@ MemoryGame.prototype.createTileLayout = function(arrayOfTiles) {
     if (val < 10) {
       val = "0" + val.toString();
     }
-    html += '<div class="col col-xs-6 col-sm-3 tile"><img src="images/monsters-' + val + '.png" alt="" class="img-responsive monster"></div>';
+    html += '<div class="col col-xs-6 col-sm-3 tile"><img src="images/monsters-' + val + '.png" alt="" class="img-responsive monster"><div class="back"></div></div>';
   });
   $('.row').html(html);
 }
@@ -81,7 +81,7 @@ $(function() {
 
   $('.row').on('click', '.tile', function() {
     if (game.state) {
-      $(this).addClass('selected animated flipInY');
+      $(this).addClass('selected');
       game.prevElement = $(this);
       game.state = false;
     } else {
@@ -91,19 +91,17 @@ $(function() {
         game.state = false;
       }
       else {
-        game.currElement.addClass('selected animated flipInY');
+        game.currElement.addClass('selected');
         //check if monsters match
         if (game.prevElement.find('.monster').attr('src') === game.currElement.find('.monster').attr('src')) {
           //do nothing
+          game.prevElement.addClass('matched');
+          game.currElement.addClass('matched');
         } else {
           setTimeout(function() {
-            game.currElement.removeClass('selected flipInY').addClass('flipOutY');
-            game.prevElement.removeClass('selected flipInY').addClass('flipOutY');
+            game.currElement.removeClass('selected');
+            game.prevElement.removeClass('selected');
           }, 1000);
-          setTimeout(function() {
-            game.currElement.removeClass('flipOutY');
-            game.prevElement.removeClass('flipOutY');
-          }, 1800);
         }
         game.state = true;
         game.numMoves++;
