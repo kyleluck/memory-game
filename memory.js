@@ -1,14 +1,21 @@
-function checkIfGameOver(numMoves) {
+function MemoryGame (state, prevElement, currElement, numMoves) {
+  this.state = state;
+  this.prevElement = prevElement;
+  this.currElement = currElement;
+  this.numMoves = numMoves;
+}
+
+MemoryGame.prototype.checkIfGameOver = function() {
   var gameOver = false;
   if ($('.tile').length === $('.selected').length) {
     gameOver = true;
   }
   if (gameOver) {
-    $('.gameover').prepend('Congrats! You won with ' + numMoves + ' moves!').addClass('gameovershow');
+    $('.gameover').prepend('Congrats! You won with ' + this.numMoves + ' moves!').addClass('gameovershow');
   }
 }
 
-function shuffleTiles (arrayOfTiles) {
+MemoryGame.prototype.shuffleTiles = function(arrayOfTiles) {
   var currentIndex = arrayOfTiles.length;
   var tempValue;
   var randomIndex;
@@ -24,8 +31,8 @@ function shuffleTiles (arrayOfTiles) {
   return arrayOfTiles;
 }
 
-function createTileLayout(arrayOfTiles) {
-  var tiles = shuffleTiles(arrayOfTiles);
+MemoryGame.prototype.createTileLayout = function(arrayOfTiles) {
+  var tiles = this.shuffleTiles(arrayOfTiles);
   var html = '';
   tiles.forEach(function(val) {
     if (val < 10) {
@@ -36,7 +43,7 @@ function createTileLayout(arrayOfTiles) {
   $('.row').html(html);
 }
 
-function chooseRandomImages(numImagesToUse, numTotalImages) {
+MemoryGame.prototype.chooseRandomImages = function(numImagesToUse, numTotalImages) {
   var arrayOfImageNumbers = [];
   while (arrayOfImageNumbers.length < numImagesToUse) {
     var randomNumber = Math.floor(Math.random() * numTotalImages) + 1;
@@ -48,7 +55,7 @@ function chooseRandomImages(numImagesToUse, numTotalImages) {
   return arrayOfImageNumbers;
 }
 
-function createLevel(level) {
+MemoryGame.prototype.createLevel = function(level) {
   if (level === 'Easy') {
     numImagesToUse = 8;
   } else if (level === 'Medium') {
@@ -56,48 +63,49 @@ function createLevel(level) {
   } else if (level === 'Hard'){
     numImagesToUse = 16;
   }
-  var arrayOfTiles = chooseRandomImages(numImagesToUse, 16);
-  createTileLayout(arrayOfTiles);
+  var arrayOfTiles = this.chooseRandomImages(numImagesToUse, 16);
+  this.createTileLayout(arrayOfTiles);
 }
 
 $(function() {
-  var state = true;
-  var prevElement;
-  var currElement;
-  var numMoves = 0;
+  var game = new MemoryGame(true, '', '', 0);
+  // var state = true;
+  // var prevElement;
+  // var currElement;
+  // var numMoves = 0;
 
   $('#chooselevel li').on('click', function() {
     level = $(this).text();
-    createLevel(level);
+    game.createLevel(level);
   });
 
   $('.row').on('click', '.tile', function() {
-    if (state) {
+    if (game.state) {
       $(this).addClass('selected animated flipInY');
-      prevElement = $(this);
-      state = false;
+      game.prevElement = $(this);
+      game.state = false;
     } else {
-      currElement = $(this);
+      game.currElement = $(this);
       //check to see if the user clicked on the same tile... stupid users
-      if (currElement.hasClass('selected')) {
-        state = false;
+      if (game.currElement.hasClass('selected')) {
+        game.state = false;
       }
       else {
-        currElement.addClass('selected animated flipInY');
+        game.currElement.addClass('selected animated flipInY');
         //check if monsters match
-        if (prevElement.find('.monster').attr('src') === currElement.find('.monster').attr('src')) {
+        if (game.prevElement.find('.monster').attr('src') === game.currElement.find('.monster').attr('src')) {
           //do nothing
         } else {
           setTimeout(function() {
-            currElement.removeClass('selected animated flipInY');
-            prevElement.removeClass('selected animated flipInY');
+            game.currElement.removeClass('selected animated flipInY');
+            game.prevElement.removeClass('selected animated flipInY');
           }, 1000);
         }
-        state = true;
-        numMoves++;
+        game.state = true;
+        game.numMoves++;
       }
     }
-    checkIfGameOver(numMoves);
+    game.checkIfGameOver();
   });
 
   $('.playagain').on('click', function() {
