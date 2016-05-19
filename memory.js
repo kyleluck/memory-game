@@ -97,9 +97,13 @@ $(function() {
           //do nothing
         } else {
           setTimeout(function() {
-            game.currElement.removeClass('selected animated flipInY');
-            game.prevElement.removeClass('selected animated flipInY');
+            game.currElement.removeClass('selected flipInY').addClass('flipOutY');
+            game.prevElement.removeClass('selected flipInY').addClass('flipOutY');
           }, 1000);
+          setTimeout(function() {
+            game.currElement.removeClass('flipOutY');
+            game.prevElement.removeClass('flipOutY');
+          }, 1800);
         }
         game.state = true;
         game.numMoves++;
