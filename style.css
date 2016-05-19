@@ -22,7 +22,7 @@ body {
   backface-visibility: hidden;
   transition: transform 0.5s;
   border: 2px solid #aaa;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .tile .back {
