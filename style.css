@@ -2,7 +2,6 @@ body {
   background: url('bg.png');
 }
 .tile {
-  /*box-shadow: 10px 10px 6px -6px #777;*/
   position: relative;
 }
 .monster, .gameover {
